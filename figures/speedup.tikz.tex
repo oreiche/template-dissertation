@@ -1,0 +1,35 @@
+\tikzpicturedependsonfile{figures/speedup.tikz.tex}
+
+\begin{tikzpicture}[trim axis left, trim axis right]
+  \begin{axis}[%
+      width=.9\linewidth,%
+      height=.5\linewidth,%
+      ybar=1pt,%
+      bar width=7pt,%
+      enlarge x limits=0.09,% horizontal spacing
+      symbolic x coords={10,20,30,40,50,60,70},%
+      xticklabels={{Simple},{Mandel-\\brot},{Stencil},{Laplace},{Gaussian},{Harris\\Corner},{Optical\\Flow}},%
+      xticklabel style={align=center},%
+      xtick=data,%
+      xtick pos=left,
+      ytick pos=left,
+      y tick style={transparent},% hide x tick marks
+      ymin=0,%
+      ymax=7,%
+      ylabel={Speedup},%
+      x tick label style={font=\small},
+      y tick label style={font=\small},
+      ymajorgrids,
+      ytick={0,2,4,6,8,10,12,14,16},
+      legend style={at={(0,1.1)},draw=none,fill=none,anchor=north west,legend columns=6,font=\small},
+      legend cell align=left]%
+
+    \addplot[draw=RoyalBlue!80!black, fill=RoyalBlue!80!black]       table [y=ispc, x=app]     {data/vect.dat};
+    \addplot[draw=LimeGreen!80!black, fill=LimeGreen!80!black]       table [y=icc, x=app]      {data/vect.dat};
+    \addplot[draw=Goldenrod!80!black, fill=Goldenrod!80!black]       table [y=clang, x=app]    {data/vect.dat};
+    \addplot[draw=YellowOrange!80!black, fill=YellowOrange!80!black] table [y=gcc, x=app]      {data/vect.dat};
+    \addplot[draw=Red!80!black, fill=Red!80!black]                   table [y=baseline, x=app] {data/vect.dat};
+
+    \legend{ISPC,ICC,Clang,GCC,Baseline},%
+  \end{axis}
+\end{tikzpicture}

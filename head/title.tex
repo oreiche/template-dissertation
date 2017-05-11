@@ -1,0 +1,58 @@
+\makeatletter
+
+% Additional title commands
+\newcommand*\germantitle[1]{%
+  \gdef\@germantitle{#1}}
+\newcommand*\placeofbirth[1]{%
+  \gdef\@placeofbirth{#1}}
+\newcommand*\chairman[1]{%
+  \gdef\@chairman{#1}}
+
+% Title page
+\renewcommand\maketitle{%
+  \begin{titlepage}%
+    \null\vspace{2em}
+
+    % Title body
+    \begin{center}
+      {\titlefont\huge\@title\par}%
+      \vspace{2em}
+
+      {\Large Der Technischen Fakult{\"a}t\\                                                                                    
+        der Friedrich-Alexander-Universit{\"a}t\\                                                                               
+        Erlangen-N{\"u}rnberg\\                                                                                                 
+        zur\\                                                                                                                   
+        Erlangung des Doktorgrades Dr.-Ing.\\[16mm]                                                                             
+        vorgelegt von\\[7mm]                                                                                                    
+        {\Large\@author\\[7mm]}
+        aus \@placeofbirth
+      }
+    \end{center}
+
+    % Back of title page
+    \if@twoside\next@tpage
+      % Upper title back
+      \begin{minipage}[t]{\textwidth}
+        \@uppertitleback
+      \end{minipage}\par
+      \vfill
+
+      % Lower title back
+      \begin{minipage}[b]{\textwidth}
+        \@lowertitleback
+      \end{minipage}
+    \fi
+  \end{titlepage}
+}
+
+\lowertitleback{
+  Als Dissertation genehmigt\\
+  von der Technischen Fakult{\"a}t\\
+  der Friedrich-Alexander-Universit{\"a}t Erlangen-N{\"u}rnberg\\
+  Tag der m\"undlichen Pr\"ufung: \@date\\[9mm]
+  Vorsitzender des Promotionsorgans: {\@chairman}\\[7mm]
+  Gutachter: \parbox[t]{.8\textwidth}{\@publishers}
+}
+
+\makeatother
+

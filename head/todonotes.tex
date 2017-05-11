@@ -1,0 +1,29 @@
+% Set margin dimensions
+\ifx\final\empty\else
+  \marginparsep 0.5em
+  \marginparwidth 3.5pc
+\fi
+
+\makeatletter
+
+% Patch todo to handle TikZ externalize
+\renewcommand{\todo}[2][color=Cerulean!20]{%
+  \ifx\final\empty\else
+    \ifx\tikzexternaldisable\undefined\else%
+      \tikzexternaldisable%
+    \fi
+    \@todo[size=\scriptsize,caption={#2},#1]{#2}%
+    \ifx\tikzexternalenable\undefined\else%
+      \tikzexternalenable%
+    \fi
+  \fi}
+
+% Patch missingfigure to handle TikZ externalize
+\let\MissingFigure\missingfigure
+\newcommand{\MyMissingFigure}[2][]{%
+  \tikzexternaldisable%
+  \MissingFigure[#1]{#2}%
+  \tikzexternalenable}%
+\let\missingfigure\MyMissingFigure
+
+\makeatother

@@ -1,0 +1,41 @@
+% Line spacing
+\linespread{1.00}
+
+% Font expansion
+\SetExpansion[stretch=20, shrink=20]{encoding={OT1,T1,TS1}}{}
+
+% Add thin space to xspace exception list
+\xspaceaddexceptions{\,}
+
+% Abbreviations
+\newcommand{\ie}{\mbox{i.\,e.,}\xspace}
+\newcommand{\eg}{\mbox{e.\,g.,}\xspace}
+\newcommand{\ua}{\mbox{u.\,a.}\xspace}
+\newcommand{\zB}{\mbox{z.\,B.}\xspace}
+\newcommand{\dahe}{\mbox{d.\,h.}\xspace}
+\newcommand{\vgl}{vgl.\xspace}
+\newcommand{\Vgl}{Vgl.\xspace}
+\newcommand{\bzw}{bzw.\xspace}
+\newcommand{\usw}{usw.\xspace}
+\newcommand{\evtl}{evtl.\xspace}
+\newcommand{\bspw}{bspw.\xspace}
+
+% Use normal font style for URLs
+\urlstyle{same}
+
+% Enable copy&paste and search for words including ligatures
+\input glyphtounicode.tex
+\pdfgentounicode=1
+
+% Use abbreviation for references to equations
+\crefname{equation}{eq.}{eqs.}
+\Crefname{equation}{Eq.}{Eqs.}
+
+% Always use capitalized version of cref
+\let\cref\Cref
+
+% Shortcut to highlight code within text
+\newcommand{\code}[1]{{\scalefont{.95}\texttt{#1}}}
+
+% Enable top align
+\raggedbottom

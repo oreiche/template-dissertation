@@ -1,0 +1,29 @@
+\tikzpicturedependsonfile{figures/scatter.tikz.tex}
+
+\begin{tikzpicture}[trim axis left,trim axis right]
+  \tikzset{every pin/.style={pin distance=1em,font=\footnotesize}}
+  \begin{axis}[
+      width=.9\linewidth, 
+      height=.5\linewidth,
+      xlabel={Throughput [frame/s]},
+      ylabel={Logic Utilization [\%]},
+      legend style={font=\small},
+      legend cell align=left,
+      scatter/classes={%
+        n={mark=*,gray!50},%
+        y={mark=*,blue}}]
+
+    \addplot[scatter, only marks, scatter src=explicit symbolic]
+         table[x=FPS, y=Util, meta=Single] {data/pareto.dat}
+         %node[pos=0/7, pin=right:NDRange]{}
+         node[pos=1/7, pin=below right:CU2]{}
+         node[pos=2/7, pin=right:CU4]{}
+         node[pos=3/7, pin=right:SIMD2]{}
+         node[pos=4/7, pin=below right:SIMD4]{}
+         node[pos=5/7, pin=right:CU2/SIMD2]{}
+         %node[pos=6/7, pin=right:Single]{}
+         node[pos=7/7, pin=above left:Line Buffer]{};
+
+    \legend{NDRange,Single}
+  \end{axis}
+\end{tikzpicture}

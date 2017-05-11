@@ -1,0 +1,52 @@
+% Match commands from acronyms package to glossaries package
+\usepackage{suffix}
+\newcommand{\acresetall}{\glsresetall}
+\newcommand{\ac}[1]{\gls{#1}}
+\newcommand{\acf}[1]{\ifglsused{#1}{\acrfull{#1}}{\ac{#1}}}
+\newcommand{\acs}[1]{\acrshort{#1}}
+\newcommand{\acl}[1]{\acrlong{#1}}
+\newcommand{\acp}[1]{\glspl{#1}}
+\newcommand{\acfp}[1]{\ifglsused{#1}{\acrfullpl{#1}}{\acp{#1}}}
+\newcommand{\acsp}[1]{\acrshortpl{#1}}
+\newcommand{\aclp}[1]{\acrlongpl{#1}}
+\newcommand{\acfi}[1]{\emph{\acrlong{#1}} (\textsc{\acrshort{#1}})}
+\newcommand{\iac}[1]{a \ac{#1}}
+\newcommand{\Iac}[1]{A \ac{#1}}
+\WithSuffix\newcommand\ac*[1]{\ifglsused{#1}{\ac{#1}}{\ac{#1}\glsreset{#1}}}
+\WithSuffix\newcommand\acf*[1]{\ifglsused{#1}{\acf{#1}}{\acf{#1}\glsreset{#1}}}
+\WithSuffix\newcommand\acs*[1]{\ifglsused{#1}{\acs{#1}}{\acs{#1}\glsreset{#1}}}
+\WithSuffix\newcommand\acl*[1]{\ifglsused{#1}{\acl{#1}}{\acl{#1}\glsreset{#1}}}
+\WithSuffix\newcommand\acp*[1]{\ifglsused{#1}{\acp{#1}}{\acp{#1}\glsreset{#1}}}
+\WithSuffix\newcommand\acfp*[1]{\ifglsused{#1}{\acfp{#1}}{\acfp{#1}\glsreset{#1}}}
+\WithSuffix\newcommand\acsp*[1]{\ifglsused{#1}{\acsp{#1}}{\acsp{#1}\glsreset{#1}}}
+\WithSuffix\newcommand\aclp*[1]{\ifglsused{#1}{\aclp{#1}}{\aclp{#1}\glsreset{#1}}}
+\WithSuffix\newcommand\acfi*[1]{\ifglsused{#1}{\acfi{#1}}{\acfi{#1}\glsreset{#1}}}
+\WithSuffix\newcommand\iac*[1]{a \ac*{#1}}
+\WithSuffix\newcommand\Iac*[1]{A \ac*{#1}}
+\newcommand{\newacro}[3][\empty]{%
+  \ifx#1\empty\newacronym{#2}{#2}{#3}\else\newacronym{#2}{#1}{#3}\fi}
+
+% New style for acronyms (similar to list of symbols)
+\newglossarystyle{dottedlist}{%
+  \renewenvironment{theglossary}%
+    {\begin{description}[labelwidth=2.5cm]}{\end{description}}%
+  \renewcommand*{\glossaryheader}{}%
+  \renewcommand*{\glsgroupheading}[1]{}%
+  \renewcommand*{\glossentry}[2]{%
+    \item[\glsentryitem{##1}%
+          \glstarget{##1}{\glossentryname{##1}}]%
+       \glossentrydesc{##1}\dotfill ##2}%
+  \renewcommand*{\subglossentry}[3]{%
+    \glssubentryitem{##2}%
+    \glstarget{##2}{\strut}\space
+    \glossentrydesc{##2}\dotfill ##3.}%
+  \renewcommand*{\glsgroupskip}{\ifglsnogroupskip\else\indexspace\fi}%
+}
+
+% Enable acronyms and glossary without makeindex
+\makenoidxglossaries
+
+% Different headings for first index page
+\renewcommand*{\indexpagestyle}{scrplain}
+\makeindex
+

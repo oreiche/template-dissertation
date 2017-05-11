@@ -1,0 +1,85 @@
+\documentclass[%
+  english,%
+  12pt,%
+  a4paper,%
+  DIV=12, BCOR=2cm,%
+  twoside, open=right, cleardoublepage=empty,%
+  headsepline=true, bibtotoc, idxtotoc, pointlessnumbers,%
+  dvipsnames]{scrbook}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{lmodern}
+\usepackage[slantedGreek]{mathptmx}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{calc}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{xspace}
+\usepackage{scalefnt}
+\usepackage{quotchap}
+\usepackage[inline]{enumitem}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{pgf}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage{tikz}
+\usepackage[caption=false]{subfig}
+\usepackage{url}
+\usepackage{todonotes}
+\usepackage[autostyle]{csquotes}
+\usepackage[%
+  \ifx\print\empty%
+    hidelinks%
+  \else%
+    colorlinks%
+  \fi]{hyperref}
+\usepackage{cleveref}
+\usepackage[defaultlines=2]{nowidow}
+\IfFileExists{zi4.sty}{%
+  \usepackage{zi4}
+}{\IfFileExists{inconsolata.sty}{%
+  % Fall back for older LaTeX distributions
+  \usepackage{inconsolata}
+}{}}
+\usepackage[%
+  style=trad-alpha,%
+  backend=biber,%
+  mincitenames=1,%
+  maxcitenames=3,%
+  doi=true,%
+  isbn=true]{biblatex}
+\usepackage{scrlayer-scrpage} % Header and footer
+\usepackage{scrhack} % Fixes warnings for listings
+\usepackage{makeidx}
+\usepackage{idxlayout} % Fixes vertical space for index heading in KOMA script
+\usepackage[
+  toc,
+  style=altlist,
+  acronym=true
+]{glossaries} % Glossary
+\usepackage[
+  \ifx\final\empty final,\fi
+  pageno,
+  usexspace
+]{listofsymbols}
+
+\input{head/fixquotchap}
+\input{head/fixlistofsymbols}
+
+\input{head/typeset}
+\input{head/graphics}
+\input{head/listings}
+\input{head/bibgraph}
+\input{head/todonotes}
+\input{head/headandfoot}
+\input{head/indexes}
+\input{head/title}
+

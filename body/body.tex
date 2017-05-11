@@ -1,0 +1,184 @@
+\chapter{Methods}\label{sec:methods}
+This Section proposes useful guidelines for typesetting and using this template.
+
+\section{Citations}
+Either cite the reference id~\parencite{RKHT17} only, the authors
+\citeauthor{RKHT17} only, or both at once \eg \textcite[see][51\psq]{MGBCR04}.
+In addition, citations can be placed in
+footnotes\footcite[see][50\psqq]{MGBCR04} as well.
+
+\section{References}
+The type of reference is automatically resolved, such as \Cref{sec:methods},
+\Cref{tab:example}, \Cref{fig:example}, \Cref{fig:subfig1,fig:subfig2},
+\Cref{lst:hello}, and \Cref{alg:euclid}.
+
+\section{Symbols, Acronyms, Glossary, Index}
+A list of symbols can be defined globally. Afterwards, specifying the user
+defined command results in printing the symbol, such as \stddev. You can access
+another predefined symbol in a symbol definition \eg \variance (squared symbol
+for standard deviation).
+
+The first use of \ac{ALU} is written out followed by its abbreviation for later
+use. Therefore, the second use of \ac{ALU} will only put the abbreviation.
+Moreover, it is also possible to specify the use of plural if multiple
+\acp{ALU} are mentioned in text.
+
+Entries to the glossary can be created by using one of the defined entries \eg
+\gls{computer}.
+
+For indexing\index{Indexing} specific keywords\index{Keywords} and
+corresponding subkeywords\index{Keywords!Sub}, just tag their use.
+
+\section{Lists}
+Besides using \code{itemize} and \code{enumerate}, also \emph{inline} lists can
+be defined. Advantages are:
+\begin{enumerate*}[label=\upshape(\alph*),itemjoin={{; }},itemjoin*={{; and }}]
+  \item Automatic generation of \emph{inline} numbering for each item
+  \item insertion of separators between items
+  \item placement of a different separator for the last item.
+\end{enumerate*}
+However, do not forget to put a full stop at the last item.
+
+\section{Tables}
+\begin{table}[t]
+  \caption{A very simple example table.}
+  \label{tab:example}
+  \centering
+  \scalebox{0.7}{
+    \begin{tabular}{llrrrrrrr}
+      \toprule
+      Filter                    & Type   & II & ALUTs & Registers & LU (\%) & BRAM & DSP & Freq [MHz] \\
+      \midrule
+      \multirow{2}{*}{Gaussian} & normal &  2 &  8593 &     12423 &   19.86 &   84 &   4 &     132.50 \\
+                                & fused  &  2 &  8439 &     11843 &   19.26 &   83 &   3 &     153.11 \\
+      \cmidrule{2-9}
+      \multirow{2}{*}{Sobel}    & normal &  2 &  8552 &     12433 &   19.76 &   84 &   4 &     131.25 \\
+                                & fused  &  2 &  8230 &     12098 &   19.11 &   84 &   3 &     152.09 \\
+      \bottomrule
+    \end{tabular}
+  }
+\end{table}
+
+Common rules for tables are to put captions above the table, to entirely omit
+vertical lines, to put units in the table's header, to align numbers to the
+right, and to always use the same amount of decimal places within a specific
+column, as shown in \Cref{tab:example}.
+
+\section{Figures}
+Besides creating a separate floating environment for every Figure
+(\Cref{fig:example}), multiple Figures can also be nicely grouped in sub
+Figures, such as \Cref{fig:subfig1,fig:subfig2}.
+
+\begin{figure}[t]
+  \begin{center}
+    \includegraphics[width=0.5\linewidth]{codesign}
+  \end{center}
+  \caption{This is an example figure.}
+  \label{fig:example}
+\end{figure}
+
+\begin{figure}[t]
+  \begin{center}
+    \hfill
+    \subfloat[First sub figure]{%
+      \label{fig:subfig1}%
+      \includegraphics[width=0.3\linewidth]{codesign}%
+    }
+    \hfill
+    \subfloat[Second sub figure]{%
+      \label{fig:subfig2}%
+      \includegraphics[width=0.3\linewidth]{codesign}%
+    }
+    \hfill\null
+  \end{center}
+  \caption{This is an example for sub figures.}
+  \label{fig:subfig}
+\end{figure}
+
+\pagebreak
+
+\section{Listings}
+A Listing can be put inline, like this
+
+\lstinputlisting[%
+  frame=none,%
+  language=C++,%
+  aboveskip=\medskipamount,%
+  belowskip=\medskipamount]
+  {code/helloworldshort.cpp}
+which unfortunately cannot be referenced and could be split up into two on page
+breaks. Alternatively, Listings could also be defined within a floating
+environment, as provided in \Cref{lst:hello}.
+
+\lstinputlisting[%
+  float=t,%
+  language=C++,%
+  caption={Hello World example.},%
+  label={lst:hello}]
+  {code/helloworldfull.cpp}
+
+It is also possible to include short code snippets like
+\lstinline[language=C++]{std::vector<double>} in the text.
+
+\section{Algorithms}
+The equal sign (\code{=}) in pseudo code algorithms is used for testing
+equality and not for assignments. For assignments, use \code{\textbackslash
+gets} instead. Furthermore, variable names with more than one letter should be
+set with \code{\textbackslash textrm}, as a name such as $var$ could be
+interpret as $v\times a\times r$.
+
+\begin{algorithm}
+  \small
+  \SetAlCapFnt{\small}
+  \SetAlCapNameFnt{\small}
+
+  \DontPrintSemicolon
+  \SetKwProg{Func}{function}{}{end}
+  \SetKwFunction{euclid}{Euclid}
+
+  \caption{Euclid's algorithm}
+  \label{alg:euclid}
+  \Func(\tcp*[f]{The g.c.d. of a and b}){\euclid{$a,b$}}{
+    $r \gets a\bmod b$\;
+    \While(\tcp*[f]{We have the answer if r is 0}){$r\not=0$}{
+      $a\gets b$\;
+      $b\gets r$\;
+      $r\gets a\bmod b$;\
+    }
+    \Return $b$ \tcp*{The gcd is b}
+  }
+\end{algorithm}
+
+\section{Plots}
+Plots should be defined as separate TikZ files. Data for plots should always be
+provided in a separate data file. Rich examples for throughput, speedup, and
+scatter plots are given in \Cref{fig:throughput,fig:speedup,fig:scatter}.
+
+\begin{figure}[t]
+  \begin{center}
+    \input{figures/throughput.tikz}
+  \end{center}
+  \caption{Example for throughput plot.}
+  \label{fig:throughput}
+\end{figure}
+
+\begin{figure}[t]
+  \begin{center}
+    \input{figures/speedup.tikz}
+  \end{center}
+  \caption{Example for speedup plot.}
+  \label{fig:speedup}
+\end{figure}
+
+\begin{figure}[t]
+  \begin{center}
+    \input{figures/scatter.tikz}
+  \end{center}
+  \caption{Example for scatter plot.}
+  \label{fig:scatter}
+\end{figure}
+
+\section{Todos}
+Todos\todo{This is a todo} can simply be set everywhere in text. They will
+automatically be hidden in \code{final} and \code{print} mode.
+

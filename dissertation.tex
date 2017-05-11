@@ -1,0 +1,79 @@
+%\def\final{}
+%\def\print{}
+
+\input{head/header}
+\input{body/symbols}
+\input{body/acronyms}
+\input{body/glossary}
+\input{body/hyphenation}
+\input{body/headandfoot}
+
+\title{Title}
+\germantitle{Deutscher Titel}
+\author{First name Surname}
+\placeofbirth{Place of birth}
+\date{Date of Defense}
+\chairman{Ph.D. Committee Chairman}
+\publishers{Prof.\ Dr.-Ing.\ J\"urgen Teich\\
+            Prof.\ Dr.\ First name Surname}
+
+\begin{document}
+  \frontmatter
+
+  % Title page
+  \maketitle
+
+  % Quote
+  \input{body/quote}
+
+  % Acknowledgements
+  \input{body/acknowledgements}
+
+  % Contents
+  \tableofcontents
+
+  % Figures
+  %\listoffigures
+
+  % Tables
+  %\listoftables
+
+  % Listings
+  %\lstlistoflistings
+
+  \mainmatter
+
+  % Main document
+  \input{body/body}
+
+  \backmatter
+
+  % German title
+  \input{head/germantitle}
+
+  % German abstract
+  \input{body/zusammenfassung}
+
+  % Bibliography
+  \printbibliography[notkeyword=own]
+
+  % Author's own publications
+  \printbibliography[title={Author's Own Publications}, keyword=own]
+
+  % Symbols
+  \listofsymbols
+
+  % Glossary
+  %\printnoidxglossary
+
+  % Acronyms
+  \printnoidxglossary[type=acronym, style=dottedlist]
+
+  % Index
+  \printindex
+
+  % Curriculum Vitæ
+  \input{body/cv}
+
+\end{document}
+

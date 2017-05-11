@@ -1,0 +1,130 @@
+\usepackage{calc}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{scalefnt}
+
+\lstset{%
+  captionpos=b,
+  tabsize=2,
+  numbers=left,
+  numbersep=5pt,
+  basicstyle=\lst@ifdisplaystyle\ttfamily\scalefont{.75}\else\ttfamily\scalefont{.95}\fi,
+  numberstyle=\ttfamily\scalefont{.9},
+  keywordstyle=\color{RoyalBlue},
+  commentstyle=\color{green!50!black},
+  stringstyle=\color{red},
+  keepspaces=true,
+  showstringspaces=false,
+  breaklines=true,
+}
+
+% ----- BOOK-STYLE LISTINGS - COMMENT FOR NORMAL LISTINGS -----
+\makeatletter
+% For fancy listing captions, we need to load the caption package, which will
+% override the template style for tables and figures. The following four steps
+% will circumvent this issue.
+
+% 1. Store original caption command before it gets overridden by caption package
+\let\originalmakecaption\@makecaption
+
+% 2. Load caption package
+\usepackage{caption}
+
+% 3. Store caption packages caption command before defining our own
+\let\captionsmakecaption\@makecaption
+
+% 4. Define our own caption command
+\long\def\@makecaption#1#2{%
+  \ifthenelse{\equal{\@captype}{lstlisting}}{%
+    % This is a listing, use caption packages caption command
+    \captionsmakecaption{#1}{#2}%
+  }{%
+    % This is not a listing, use the templates original caption command
+    \originalmakecaption{#1}{#2}%
+  }
+}
+\makeatother
+
+\definecolor{captiongray}{rgb}{0.56470, 0.56470, 0.56470}
+
+\newlength{\captionskip}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox{captiongray}{\parbox[c][2ex][c]{\linewidth-6pt}{%
+  \settodepth{\captionskip}{g}\vspace{\captionskip}%
+  \settoheight{\captionskip}{Lg}\setlength{\captionskip}{1ex-.5\captionskip}\hspace{\captionskip}%
+  #1#2#3}}}
+
+\captionsetup[lstlisting]{%
+  format=listing,%
+  labelfont=white,%
+  textfont=white,%
+  singlelinecheck=false,%
+  margin=0pt,%
+  font={sf,bf,footnotesize},%
+  labelsep=colon}
+
+\lstset{%
+  frame=b,
+  captionpos=t,
+  basicstyle=\lst@ifdisplaystyle\ttfamily\scalefont{.75}\else\ttfamily\scalefont{.95}\fi,
+  numberstyle=\ttfamily\scalefont{.9},
+  keywordstyle=\color{RoyalBlue},
+  commentstyle=\color{green!50!black},
+  stringstyle=\color{red},
+  rulecolor=\color{captiongray},
+  aboveskip=0pt,
+  belowskip=0pt,
+  backgroundcolor=\color{white},
+  belowcaptionskip=3pt,
+  xleftmargin=17pt,
+  framexleftmargin=17pt,
+  framexrightmargin=0pt,
+  framexbottommargin=0pt,
+}
+% ----- END OF BOOK-STYLE LISTINGS - COMMENT FOR NORMAL LISTINGS -----
+
+\lstdefinelanguage{HIPAcc}{%
+  language=C++,
+  morekeywords={size_t, uchar, ushort, uint,
+    uchar2, char2, ushort2, short2, uint2, int2, float2, double2,
+    uchar4, char4, ushort4, short4, uint4, int4, float4, double4,
+    uchar8, char8, ushort8, short8, uint8, int8, float8, double8,
+    uchar16, char16, ushort16, short16, uint16, int16, float16, double16},
+  keywords=[2]{Image, Accessor, Kernel, IterationSpace, Mask, BoundaryCondition,
+    Boundary, CLAMP, MIRROR, UNDEFINED, REPEAT, CONSTANT, output, convolve,
+    iterate, reduce, Reduce, SUM, MIN, MAX, PROD, MEDIAN Domain},
+  keywordstyle=[2]{\color{red!50!black}\bfseries}
+}
+
+\lstdefinestyle{CUDA}{%
+  language=C++,
+  morekeywords={size_t, uchar, ushort, uint,
+    uchar2, char2, ushort2, short2, uint2, int2, float2, double2,
+    uchar4, char4, ushort4, short4, uint4, int4, float4, double4,
+    uchar8, char8, ushort8, short8, uint8, int8, float8, double8,
+    uchar16, char16, ushort16, short16, uint16, int16, float16, double16},
+  otherkeywords=[2]{>>>,<<<,[,]},
+  alsoletter=[2]{.},
+  keywords=[2]{__device__, __host__, __global__, __constant__, __shared__, dim3,
+    blockIdx.x, blockIdx.y, blockDim.x, blockDim.y, blockDim.z, threadIdx.x,
+    threadIdx.y, threadIdx.z, gridDim.x, gridDim.y, warpSize, __syncthreads,
+    __sinf, __cosf, __expf, cudaMalloc, cudaMemset, cudaFree, cudaMemcpy,
+    cudaMemcpyHostToDevice, cudaMemcpyDeviceToHost, cudaMemcpyDeviceToDevice,
+    tex1Dfetch, tex2D, surf2Dwrite},
+  keywordstyle=[2]{\color{blue}\bfseries}
+}
+
+\lstdefinestyle{OpenCL}{%
+  language=C,
+  morekeywords={size_t, uchar, ushort, uint,
+    uchar2, char2, ushort2, short2, uint2, int2, float2, double2,
+    uchar4, char4, ushort4, short4, uint4, int4, float4, double4,
+    uchar8, char8, ushort8, short8, uint8, int8, float8, double8,
+    uchar16, char16, ushort16, short16, uint16, int16, float16, double16},
+  keywords=[2]{__kernel, __global, __constant, __local, get_num_groups,
+    get_local_size, get_group_id, get_local_id, get_global_id, get_global_size,
+    barrier, mem_fence, CLK_GLOBAL_MEM_FENCE, CLK_LOCAL_MEM_FENCE,
+    read_mem_fence, write_mem_fence, read_imagef, write_imagef},
+  keywordstyle=[2]{\color{red!50!black}\bfseries}
+}
+

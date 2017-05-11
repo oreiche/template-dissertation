@@ -1,0 +1,45 @@
+\tikzpicturedependsonfile{figures/throughput.tikz.tex}
+
+\definecolor{codesignred}{cmyk}{0.000,1.000,1.000,0.200}
+
+\begin{tikzpicture}[trim axis left,trim axis right]
+  \pgfplotsset{
+    width=.9\linewidth, 
+    height=.5\linewidth,
+    enlarge y limits=0.25,
+  }
+
+  \begin{semilogxaxis}[
+      axis lines*=left,
+      xbar,
+      bar width=8pt,
+      xmin=1,
+      ytick=data,
+      yticklabels = {
+        \strut GB,
+        \strut LP,
+        \strut SB,
+        \strut BL
+      },
+      major y tick style = {opacity=1},
+      minor y tick style = {opacity=0},
+      %y tick label style = {anchor=east, rotate=45},
+      reverse legend,
+      legend entries={
+        GPU1,
+        GPU2,
+        GPU3
+      },
+      legend columns=3,
+      legend style={at={(0,1)}, anchor=south west, draw=none, nodes={inner sep=3pt}},
+      xlabel={Throughput [MPixel/s]}]
+
+    \addplot+[xbar, color=codesignred!90] % GPU1
+      table [x=GPU1, y=FILTER] {data/gpu.dat};
+    \addplot+[xbar, color=codesignred!55] % GPU2
+      table [x=GPU2, y=FILTER] {data/gpu.dat};
+    \addplot+[xbar, color=codesignred!30] % GPU3
+      table [x=GPU3, y=FILTER] {data/gpu.dat};
+
+  \end{semilogxaxis}
+\end{tikzpicture}
