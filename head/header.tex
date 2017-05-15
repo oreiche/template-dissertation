@@ -63,17 +63,12 @@
 \usepackage{idxlayout} % Fixes vertical space for index heading in KOMA script
 \usepackage[
   toc,
+  indexonlyfirst,
   style=altlist,
   acronym=true
 ]{glossaries} % Glossary
-\usepackage[
-  \ifx\final\empty final,\fi
-  pageno,
-  usexspace
-]{listofsymbols}
 
 \input{head/fixquotchap}
-\input{head/fixlistofsymbols}
 
 \input{head/typeset}
 \input{head/graphics}

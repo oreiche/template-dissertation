@@ -26,10 +26,22 @@
 \newcommand{\newacro}[3][\empty]{%
   \ifx#1\empty\newacronym{#2}{#2}{#3}\else\newacronym{#2}{#1}{#3}\fi}
 
-% New style for acronyms (similar to list of symbols)
+% Match commands from listofsymbols package to glossaries package
+\newglossary[slg]{symbols}{sym}{sbl}{List of Symbols\ifx\final\undefined\ (draft)\fi}
+\newcommand{\newsym}[3][\empty]{%
+  \newglossaryentry{sym:#2}{%
+    type=symbols,%
+    name=\ensuremath{#3},%
+    description={\ifx\final\undefined\texttt{\textbackslash #2} -- \fi#1}%
+  }
+  \expandafter\newcommand\expandafter{\csname#2\endcsname}%
+    {{\gls{sym:#2}}\xspace}
+}
+
+% New style for acronyms and symbols
 \newglossarystyle{dottedlist}{%
   \renewenvironment{theglossary}%
-    {\begin{description}[labelwidth=2.5cm]}{\end{description}}%
+    {\begin{description}[labelwidth=2.5cm, itemsep=0pt]}{\end{description}}%
   \renewcommand*{\glossaryheader}{}%
   \renewcommand*{\glsgroupheading}[1]{}%
   \renewcommand*{\glossentry}[2]{%
