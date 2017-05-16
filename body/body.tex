@@ -70,27 +70,25 @@ Besides creating a separate floating environment for every Figure
 Figures, such as \Cref{fig:subfig1,fig:subfig2}.
 
 \begin{figure}[t]
-  \begin{center}
-    \includegraphics[width=0.5\linewidth]{codesign}
-  \end{center}
+  \centering
+  \includegraphics[width=0.5\linewidth]{codesign}
   \caption{This is an example figure.}
   \label{fig:example}
 \end{figure}
 
 \begin{figure}[t]
-  \begin{center}
-    \hfill
-    \subfloat[First sub figure]{%
-      \label{fig:subfig1}%
-      \includegraphics[width=0.3\linewidth]{codesign}%
-    }
-    \hfill
-    \subfloat[Second sub figure]{%
-      \label{fig:subfig2}%
-      \includegraphics[width=0.3\linewidth]{codesign}%
-    }
-    \hfill\null
-  \end{center}
+  \centering
+  \hfill
+  \subfloat[First sub figure]{%
+    \label{fig:subfig1}%
+    \includegraphics[width=0.3\linewidth]{codesign}%
+  }
+  \hfill
+  \subfloat[Second sub figure]{%
+    \label{fig:subfig2}%
+    \includegraphics[width=0.3\linewidth]{codesign}%
+  }
+  \hfill\null
   \caption{This is an example for sub figures.}
   \label{fig:subfig}
 \end{figure}
@@ -155,25 +153,22 @@ provided in a separate data file. Rich examples for throughput, speedup, and
 scatter plots are given in \Cref{fig:throughput,fig:speedup,fig:scatter}.
 
 \begin{figure}[t]
-  \begin{center}
-    \input{figures/throughput.tikz}
-  \end{center}
+  \centering
+  \input{figures/throughput.tikz}
   \caption{Example for throughput plot.}
   \label{fig:throughput}
 \end{figure}
 
 \begin{figure}[t]
-  \begin{center}
-    \input{figures/speedup.tikz}
-  \end{center}
+  \centering
+  \input{figures/speedup.tikz}
   \caption{Example for speedup plot.}
   \label{fig:speedup}
 \end{figure}
 
 \begin{figure}[t]
-  \begin{center}
-    \input{figures/scatter.tikz}
-  \end{center}
+  \centering
+  \input{figures/scatter.tikz}
   \caption{Example for scatter plot.}
   \label{fig:scatter}
 \end{figure}
