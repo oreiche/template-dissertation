@@ -10,8 +10,13 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{babel}
+
+% Fonts
 \usepackage{lmodern}
-\usepackage[slantedGreek]{mathptmx}
+\usepackage[slantedGreek]{mathptmx} % Times       for \rm
+\usepackage[scaled=.95]{helvet}     % Helvetica   for \sf
+\usepackage[scaled=.95]{zi4}        % Inconsolata for \tt
+
 \usepackage{amsmath,amsfonts,amssymb}
 \usepackage{bm}
 \usepackage{microtype}
@@ -44,12 +49,6 @@
   \fi]{hyperref}
 \usepackage{cleveref}
 \usepackage[defaultlines=2]{nowidow}
-\IfFileExists{zi4.sty}{%
-  \usepackage[scaled=.95]{zi4}
-}{\IfFileExists{inconsolata.sty}{%
-  % Fall back for older LaTeX distributions
-  \usepackage[scaled=.95]{inconsolata}
-}{}}
 \usepackage[%
   style=trad-alpha,%
   backend=biber,%
