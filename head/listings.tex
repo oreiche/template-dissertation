@@ -49,10 +49,15 @@
 
 \newlength{\captionskip}
 \DeclareCaptionFont{white}{\color{white}}
-\DeclareCaptionFormat{listing}{\colorbox{captiongray}{\parbox[c][2ex][c]{\linewidth-6pt}{%
-  \settodepth{\captionskip}{g}\vspace{\captionskip}%
-  \settoheight{\captionskip}{Lg}\setlength{\captionskip}{1ex-.5\captionskip}\hspace{\captionskip}%
-  #1#2#3}}}
+\DeclareCaptionFormat{listing}{%
+  \settodepth{\captionskip}{g}%
+  \colorbox{captiongray}{%
+    \hspace{.5\captionskip}%
+    \parbox[c]{\linewidth-.85em-\captionskip}{%
+      \vspace{\captionskip}\vspace{-.5ex}%
+      #1#2#3
+      \vspace{-.5ex}}
+    \hspace{.5\captionskip}}}
 
 \captionsetup[lstlisting]{%
   format=listing,%
