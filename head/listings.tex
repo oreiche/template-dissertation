@@ -48,24 +48,24 @@
 \definecolor{captiongray}{rgb}{0.56470, 0.56470, 0.56470}
 
 \newlength{\captionskip}
+\newlength{\captionlength}
 \DeclareCaptionFont{white}{\color{white}}
 \DeclareCaptionFormat{listing}{%
   \settodepth{\captionskip}{g}%
+  \settowidth{\captionlength}{#1#2}%
   \colorbox{captiongray}{%
     \hspace{.5\captionskip}%
-    \parbox[c]{\linewidth-.85em-\captionskip}{%
-      \vspace{\captionskip}\vspace{-.5ex}%
-      #1#2#3
-      \vspace{-.5ex}}
+    \parbox{\linewidth-.85em-\captionskip}{%
+      \parbox[t]{\captionlength}{\strut#1#2}%
+      \parbox[t]{\linewidth-.85em-\captionskip-\captionlength}{#3}%
+      \vspace{-\captionskip}} % vertically align
     \hspace{.5\captionskip}}}
 
 \captionsetup[lstlisting]{%
   format=listing,%
-  labelfont=white,%
-  textfont=white,%
   singlelinecheck=false,%
   margin=0pt,%
-  font={sf,bf,small},%
+  font={white,sf,bf,small},%
   labelsep=colon}
 
 \lstset{%
