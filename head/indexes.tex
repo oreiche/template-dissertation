@@ -62,3 +62,15 @@
 \renewcommand*{\indexpagestyle}{scrplain}
 \makeindex
 
+% Do not use colors for any glossary link
+\makeatletter
+\newcommand*{\glsplainhyperlink}[2]{%
+  \colorlet{currenttext}{.}% store current text color
+  \colorlet{currentlink}{\@linkcolor}% store current link color
+  \hypersetup{linkcolor=currenttext}% set link color
+  \hyperlink{#1}{#2}%
+  \hypersetup{linkcolor=currentlink}% reset to default
+}
+\let\@glslink\glsplainhyperlink
+\makeatother
+
