@@ -1,17 +1,13 @@
-% Match commands from acronyms package to glossaries package
-\usepackage{suffix}
-\newcommand{\acresetall}{\glsresetall}
-\newcommand{\ac}[1]{\gls{#1}}
-\newcommand{\acf}[1]{\ifglsused{#1}{\acrfull{#1}}{\ac{#1}}}
-\newcommand{\acs}[1]{\acrshort{#1}}
-\newcommand{\acl}[1]{\acrlong{#1}}
-\newcommand{\acp}[1]{\glspl{#1}}
-\newcommand{\acfp}[1]{\ifglsused{#1}{\acrfullpl{#1}}{\acp{#1}}}
-\newcommand{\acsp}[1]{\acrshortpl{#1}}
-\newcommand{\aclp}[1]{\acrlongpl{#1}}
+% Match label commands from acronyms package to glossaries package
 \newcommand{\acfi}[1]{\emph{\acrlong{#1}} (\textsc{\acrshort{#1}})}
 \newcommand{\iac}[1]{a \ac{#1}}
 \newcommand{\Iac}[1]{A \ac{#1}}
+\newcommand{\Acfi}[1]{\emph{\Acrlong{#1}} (\textsc{\Acrshort{#1}})}
+\newcommand{\iAc}[1]{a \Ac{#1}}
+\newcommand{\IAc}[1]{A \Ac{#1}}
+
+% Match label commands with star from acronyms package to glossaries package
+\usepackage{suffix}
 \WithSuffix\newcommand\ac*[1]{\ifglsused{#1}{\ac{#1}}{\ac{#1}\glsreset{#1}}}
 \WithSuffix\newcommand\acf*[1]{\ifglsused{#1}{\acf{#1}}{\acf{#1}\glsreset{#1}}}
 \WithSuffix\newcommand\acs*[1]{\ifglsused{#1}{\acs{#1}}{\acs{#1}\glsreset{#1}}}
@@ -23,8 +19,43 @@
 \WithSuffix\newcommand\acfi*[1]{\ifglsused{#1}{\acfi{#1}}{\acfi{#1}\glsreset{#1}}}
 \WithSuffix\newcommand\iac*[1]{a \ac*{#1}}
 \WithSuffix\newcommand\Iac*[1]{A \ac*{#1}}
+\WithSuffix\newcommand\Ac*[1]{\ifglsused{#1}{\Ac{#1}}{\Ac{#1}\glsreset{#1}}}
+\WithSuffix\newcommand\Acf*[1]{\ifglsused{#1}{\Acf{#1}}{\Acf{#1}\glsreset{#1}}}
+\WithSuffix\newcommand\Acs*[1]{\ifglsused{#1}{\Acs{#1}}{\Acs{#1}\glsreset{#1}}}
+\WithSuffix\newcommand\Acl*[1]{\ifglsused{#1}{\Acl{#1}}{\Acl{#1}\glsreset{#1}}}
+\WithSuffix\newcommand\Acp*[1]{\ifglsused{#1}{\Acp{#1}}{\Acp{#1}\glsreset{#1}}}
+\WithSuffix\newcommand\Acfp*[1]{\ifglsused{#1}{\Acfp{#1}}{\Acfp{#1}\glsreset{#1}}}
+\WithSuffix\newcommand\Acsp*[1]{\ifglsused{#1}{\Acsp{#1}}{\Acsp{#1}\glsreset{#1}}}
+\WithSuffix\newcommand\Aclp*[1]{\ifglsused{#1}{\Aclp{#1}}{\Aclp{#1}\glsreset{#1}}}
+\WithSuffix\newcommand\Acfi*[1]{\ifglsused{#1}{\Acfi{#1}}{\Acfi{#1}\glsreset{#1}}}
+\WithSuffix\newcommand\iAc*[1]{a \Ac*{#1}}
+\WithSuffix\newcommand\IAc*[1]{A \Ac*{#1}}
+
+\makeatletter
+\@ifpackageloaded{biblatex}{%
+% Borrowing contents of \MakeSentenseCase{} command from BibLaTeX:
+% Transforms all characters to lower case except those that were escaped using
+% curly braces {}, similar to titles in BibLaTeX entries.
+\newrobustcmd{\MakeLowercaseEscaped}{%
+  % Prevent \MakeSentenseCase{} from capitalizing first character
+  \let\blx@mksc@endhead\relax%
+  \blx@mksc@ii}
+}{%
+% Fallback: Do not transform to lower case!
+\newcommand\MakeLowercaseEscaped[1]{#1}
+}
+\makeatother
+
+% Match newacro command from acronyms package to glossaries package.
+% If BibLaTeX package is loaded, the label expands to lower case in document
+% body but remains untouched in acronyms list. Proper nouns can be escaped using
+% curly braces {} similar to titles in BibLaTeX entries.
 \newcommand{\newacro}[3][\empty]{%
-  \ifx#1\empty\newacronym{#2}{#2}{#3}\else\newacronym{#2}{#1}{#3}\fi}
+  \ifx#1\empty%
+    \newacronym[description=#3]{#2}{#2}{\MakeLowercaseEscaped{#3}}%
+  \else%
+    \newacronym[description=#3]{#2}{#1}{\MakeLowercaseEscaped{#3}}%
+  \fi}
 
 % Match commands from listofsymbols package to glossaries package
 \newglossary[slg]{symbols}{sym}{sbl}{List of Symbols\ifx\final\undefined\ (draft)\fi}
