@@ -50,11 +50,20 @@
 % If BibLaTeX package is loaded, the label expands to lower case in document
 % body but remains untouched in acronyms list. Proper nouns can be escaped using
 % curly braces {} similar to titles in BibLaTeX entries.
-\newcommand{\newacro}[3][\empty]{%
-  \ifx#1\empty%
-    \newacronym[description=#3]{#2}{#2}{\MakeLowercaseEscaped{#3}}%
-  \else%
-    \newacronym[description=#3]{#2}{#1}{\MakeLowercaseEscaped{#3}}%
+\usepackage{xargs}
+\newcommandx{\newacro}[4][2=\empty, 4=\empty]{%
+  \ifx#4\empty% no plural description
+    \ifx#2\empty% no formated acronym
+      \newacronym[sort=#1,description=#3]{#1}{#1}{\MakeLowercaseEscaped{#3}}%
+    \else% formated acronym
+      \newacronym[sort=#1,description=#3]{#1}{#2}{\MakeLowercaseEscaped{#3}}%
+    \fi%
+  \else% plural description
+    \ifx#2\empty% no formated acronym
+      \newacronym[sort=#1,description=#3,longplural=\MakeLowercaseEscaped{#4}]{#1}{#1}{\MakeLowercaseEscaped{#3}}%
+    \else% formated acronym
+      \newacronym[sort=#1,description=#3,longplural=\MakeLowercaseEscaped{#4}]{#1}{#2}{\MakeLowercaseEscaped{#3}}%
+    \fi%
   \fi}
 
 % Match commands from listofsymbols package to glossaries package
