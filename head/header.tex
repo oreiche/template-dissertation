@@ -43,30 +43,28 @@
 \usepackage[autostyle]{csquotes}
 \usepackage[%
   \ifx\print\empty%
-    hidelinks%
+    hidelinks
   \else%
-    colorlinks%
+    colorlinks
   \fi]{hyperref}
 \usepackage{cleveref}
 \usepackage[defaultlines=2]{nowidow}
 \usepackage[%
-  style=trad-alpha,%
-  backend=biber,%
-  mincitenames=1,%
-  maxcitenames=3,%
-  doi=true,%
+  style=trad-alpha,
+  backend=biber,
+  mincitenames=1,
+  maxcitenames=3,
+  doi=true,
   isbn=true]{biblatex}
 \usepackage{scrlayer-scrpage} % Header and footer
 \usepackage{scrhack} % Fixes warnings for listings
 \usepackage{makeidx}
 \usepackage{idxlayout} % Fixes vertical space for index heading in KOMA script
-\usepackage[
+\usepackage[%
   toc,
   indexonlyfirst,
   style=altlist,
-  acronym=true,
-  shortcuts
-]{glossaries} % Glossary
+  acronym=true]{glossaries}
 
 \input{head/fixquotchap}
 

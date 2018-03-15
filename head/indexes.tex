@@ -1,33 +1,64 @@
-% Match label commands from acronyms package to glossaries package
-\newcommand{\acfi}[1]{\emph{\acrlong{#1}} (\textsc{\acrshort{#1}})}
+% Match label commands from acronyms package to glossaries package.
+% (Commands mark acronym used, first use produces page number in acronyms list)
+\newcommand{\acresetall}{\glsresetall}
+\newcommand{\ac}[1]{\gls{#1}}
+\newcommand{\acf}[1]{\acrfull{#1}\glsunset{#1}}
+\newcommand{\acs}[1]{\acrshort{#1}\glsunset{#1}}
+\newcommand{\acl}[1]{\acrlong{#1}\glsunset{#1}}
+\newcommand{\acp}[1]{\glspl{#1}}
+\newcommand{\acfp}[1]{\acrfullpl{#1}\glsunset{#1}}
+\newcommand{\acsp}[1]{\acrshortpl{#1}\glsunset{#1}}
+\newcommand{\aclp}[1]{\acrlongpl{#1}\glsunset{#1}}
+\newcommand{\acfi}[1]{\emph{\acrlong{#1}} (\textsc{\acrshort{#1}})\glsunset{#1}}
 \newcommand{\iac}[1]{a \ac{#1}}
 \newcommand{\Iac}[1]{A \ac{#1}}
-\newcommand{\Acfi}[1]{\emph{\Acrlong{#1}} (\textsc{\Acrshort{#1}})}
+\newcommand{\Ac}[1]{\Gls{#1}}
+\newcommand{\Acf}[1]{\Acrfull{#1}\glsunset{#1}}
+\newcommand{\Acs}[1]{\Acrshort{#1}\glsunset{#1}}
+\newcommand{\Acl}[1]{\Acrlong{#1}\glsunset{#1}}
+\newcommand{\Acp}[1]{\Glspl{#1}}
+\newcommand{\Acfp}[1]{\Acrfullpl{#1}\glsunset{#1}}
+\newcommand{\Acsp}[1]{\Acrshortpl{#1}\glsunset{#1}}
+\newcommand{\Aclp}[1]{\Acrlongpl{#1}\glsunset{#1}}
+\newcommand{\Acfi}[1]{\emph{\Acrlong{#1}} (\textsc{\Acrshort{#1}})\glsunset{#1}}
 \newcommand{\iAc}[1]{a \Ac{#1}}
 \newcommand{\IAc}[1]{A \Ac{#1}}
 
+% Don't mark acronym (#1) used when calling command (#2)
+\newcommand{\dontmarkused}[2]{%
+  \ifglsused{#1}{%
+    % Acronym was used before, just call the command
+    #2%
+  }{%
+    % Set used (avoids entry in acronyms list) and reset afterwards
+    \glsunset{#1}%
+    #2%
+    \glsreset{#1}%
+  }}
+
 % Match label commands with star from acronyms package to glossaries package
+% (Commands don't mark acronym used, won't produce page number in acronyms list)
 \usepackage{suffix}
-\WithSuffix\newcommand\ac*[1]{\ifglsused{#1}{\ac{#1}}{\ac{#1}\glsreset{#1}}}
-\WithSuffix\newcommand\acf*[1]{\ifglsused{#1}{\acf{#1}}{\acf{#1}\glsreset{#1}}}
-\WithSuffix\newcommand\acs*[1]{\ifglsused{#1}{\acs{#1}}{\acs{#1}\glsreset{#1}}}
-\WithSuffix\newcommand\acl*[1]{\ifglsused{#1}{\acl{#1}}{\acl{#1}\glsreset{#1}}}
-\WithSuffix\newcommand\acp*[1]{\ifglsused{#1}{\acp{#1}}{\acp{#1}\glsreset{#1}}}
-\WithSuffix\newcommand\acfp*[1]{\ifglsused{#1}{\acfp{#1}}{\acfp{#1}\glsreset{#1}}}
-\WithSuffix\newcommand\acsp*[1]{\ifglsused{#1}{\acsp{#1}}{\acsp{#1}\glsreset{#1}}}
-\WithSuffix\newcommand\aclp*[1]{\ifglsused{#1}{\aclp{#1}}{\aclp{#1}\glsreset{#1}}}
-\WithSuffix\newcommand\acfi*[1]{\ifglsused{#1}{\acfi{#1}}{\acfi{#1}\glsreset{#1}}}
+\WithSuffix\newcommand\acf*[1]{\dontmarkused{#1}{\acf{#1}}}
+\WithSuffix\newcommand\acs*[1]{\dontmarkused{#1}{\acs{#1}}}
+\WithSuffix\newcommand\acl*[1]{\dontmarkused{#1}{\acl{#1}}}
+\WithSuffix\newcommand\acfp*[1]{\dontmarkused{#1}{\acfp{#1}}}
+\WithSuffix\newcommand\acsp*[1]{\dontmarkused{#1}{\acsp{#1}}}
+\WithSuffix\newcommand\aclp*[1]{\dontmarkused{#1}{\aclp{#1}}}
+\WithSuffix\newcommand\acfi*[1]{\dontmarkused{#1}{\acfi{#1}}}
+\WithSuffix\newcommand\ac*[1]{\ifglsused{#1}{\ac{#1}}{\acf*{#1}}}
+\WithSuffix\newcommand\acp*[1]{\ifglsused{#1}{\acp{#1}}{\acfp*{#1}}}
 \WithSuffix\newcommand\iac*[1]{a \ac*{#1}}
 \WithSuffix\newcommand\Iac*[1]{A \ac*{#1}}
-\WithSuffix\newcommand\Ac*[1]{\ifglsused{#1}{\Ac{#1}}{\Ac{#1}\glsreset{#1}}}
-\WithSuffix\newcommand\Acf*[1]{\ifglsused{#1}{\Acf{#1}}{\Acf{#1}\glsreset{#1}}}
-\WithSuffix\newcommand\Acs*[1]{\ifglsused{#1}{\Acs{#1}}{\Acs{#1}\glsreset{#1}}}
-\WithSuffix\newcommand\Acl*[1]{\ifglsused{#1}{\Acl{#1}}{\Acl{#1}\glsreset{#1}}}
-\WithSuffix\newcommand\Acp*[1]{\ifglsused{#1}{\Acp{#1}}{\Acp{#1}\glsreset{#1}}}
-\WithSuffix\newcommand\Acfp*[1]{\ifglsused{#1}{\Acfp{#1}}{\Acfp{#1}\glsreset{#1}}}
-\WithSuffix\newcommand\Acsp*[1]{\ifglsused{#1}{\Acsp{#1}}{\Acsp{#1}\glsreset{#1}}}
-\WithSuffix\newcommand\Aclp*[1]{\ifglsused{#1}{\Aclp{#1}}{\Aclp{#1}\glsreset{#1}}}
-\WithSuffix\newcommand\Acfi*[1]{\ifglsused{#1}{\Acfi{#1}}{\Acfi{#1}\glsreset{#1}}}
+\WithSuffix\newcommand\Acf*[1]{\dontmarkused{#1}{\Acf{#1}}}
+\WithSuffix\newcommand\Acs*[1]{\dontmarkused{#1}{\Acs{#1}}}
+\WithSuffix\newcommand\Acl*[1]{\dontmarkused{#1}{\Acl{#1}}}
+\WithSuffix\newcommand\Acfp*[1]{\dontmarkused{#1}{\Acfp{#1}}}
+\WithSuffix\newcommand\Acsp*[1]{\dontmarkused{#1}{\Acsp{#1}}}
+\WithSuffix\newcommand\Aclp*[1]{\dontmarkused{#1}{\Aclp{#1}}}
+\WithSuffix\newcommand\Acfi*[1]{\dontmarkused{#1}{\Acfi{#1}}}
+\WithSuffix\newcommand\Ac*[1]{\ifglsused{#1}{\Ac{#1}}{\Acf*{#1}}}
+\WithSuffix\newcommand\Acp*[1]{\ifglsused{#1}{\Acp{#1}}{\Acfp*{#1}}}
 \WithSuffix\newcommand\iAc*[1]{a \Ac*{#1}}
 \WithSuffix\newcommand\IAc*[1]{A \Ac*{#1}}
 
