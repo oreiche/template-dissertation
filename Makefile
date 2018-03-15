@@ -8,7 +8,7 @@ BIBTEXER := biber
 
 DOCUMENT   = dissertation
 REFERENCES = body/bibgraph.bib
-#FONTS     = Myriad Minion
+#FONTS      = Myriad Minion
 
 PDFDEP := $(wildcard head/*.tex) \
           $(wildcard body/*.tex) \
@@ -101,10 +101,11 @@ fontinstall:
 	  sudo cp -r fonts/$$f/* $(TEXMFLOCAL) $(PIPE); \
 	  if [ ! $$? -eq 0 ]; then exit 1; fi; \
 	done
+	@sudo $$(which mktexlsr)
 	@for f in $(FONTS); do \
 	  echo "Enabling font $$f"; \
-	  updmap --disable $$f.map $(PIPE); \
-	  updmap --enable Map=$$f.map $(PIPE); \
+	  updmap -user --disable $$f.map $(PIPE); \
+	  updmap -user --enable Map=$$f.map $(PIPE); \
 	  if [ ! $$? -eq 0 ]; then exit 1; fi; \
   done
 endif
