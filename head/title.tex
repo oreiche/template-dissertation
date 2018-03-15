@@ -16,15 +16,21 @@
     % Title body
     \begin{center}
       {\titlefont\huge\@title\par}%
-      \vspace{2em}
+      \vspace{16mm}
 
-      {\Large Der Technischen Fakult{\"a}t\\                                                                                    
-        der Friedrich-Alexander-Universit{\"a}t\\                                                                               
-        Erlangen-N{\"u}rnberg\\                                                                                                 
-        zur\\                                                                                                                   
-        Erlangung des Doktorgrades Dr.-Ing.\\[16mm]                                                                             
-        vorgelegt von\\[7mm]                                                                                                    
-        {\Large\@author\\[7mm]}
+      {\large Der Technischen Fakult{\"a}t\\
+        der Friedrich-Alexander-Universit{\"a}t\\
+        Erlangen-N{\"u}rnberg\\
+        zur\\
+        Erlangung des Doktorgrades Dr.-Ing.
+        \vspace{16mm}
+
+        vorgelegt von
+        \vspace{7mm}
+
+        {\Large\@author}
+        \vspace{8mm}
+
         aus \@placeofbirth
       }
     \end{center}
@@ -46,11 +52,17 @@
 }
 
 \lowertitleback{
-  Als Dissertation genehmigt\\
-  von der Technischen Fakult{\"a}t\\
-  der Friedrich-Alexander-Universit{\"a}t Erlangen-N{\"u}rnberg\\
-  Tag der m\"undlichen Pr\"ufung: \@date\\[9mm]
-  Vorsitzender des Promotionsorgans: {\@chairman}\\[7mm]
+  %\begin{center}
+    Als Dissertation genehmigt\\
+    von der Technischen Fakult{\"a}t\\
+    der Friedrich-Alexander-Universit{\"a}t Erlangen-N{\"u}rnberg\\
+  %\end{center}
+  Tag der m\"undlichen Pr\"ufung: \@date
+  \vspace{10mm}
+
+  Vorsitzender des Promotionsorgans: {\@chairman}
+  \vspace{5mm}
+
   Gutachter: \parbox[t]{.8\textwidth}{\@publishers}
 }
 
