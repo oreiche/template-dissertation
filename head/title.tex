@@ -11,11 +11,14 @@
 % Title page
 \renewcommand\maketitle{%
   \begin{titlepage}%
-    \null\vspace{2em}
 
     % Title body
     \begin{center}
-      {\titlefont\huge\@title\par}%
+      \null\vfill
+      {\titlefont\huge\@title\par}
+      \vspace{8mm}
+
+      {\titlefont\Large\@germantitle\par}
       \vspace{16mm}
 
       {\large Der Technischen Fakult{\"a}t\\
@@ -33,6 +36,7 @@
 
         aus \@placeofbirth
       }
+      \vfill\null
     \end{center}
 
     % Back of title page
