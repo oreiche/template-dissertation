@@ -27,9 +27,12 @@
 \captionsetup{labelfont={bf,sf}}
 \captionsetup[subfloat]{labelfont={rm}}
 
-% Enable copy&paste and search for words including ligatures
-\input glyphtounicode.tex
-\pdfgentounicode=1
+% If PDF but not LuaTeX
+\ifpdf\ifluatex\else
+  % Enable copy&paste and search for words including ligatures
+  \input glyphtounicode.tex
+  \pdfgentounicode=1
+\fi\fi
 
 % Use abbreviation for references to equations
 \crefname{equation}{eq.}{eqs.}
