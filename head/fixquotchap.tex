@@ -1,11 +1,5 @@
 % Patch quotchap chapter style
 
-% Redefine chapter number color
-\definecolor{chaptergrey}{rgb}{0.6,0.6,0.6}
-
-% Set chapter number font
-\qsetcnfont{phv} % Helvetica
-
 % Vertical skip below chapter title
 \renewcommand{\chapterheadendvskip}{\vspace{1.7\baselineskip}}
 
@@ -22,4 +16,7 @@
       {\raggedleft\advance\leftmargin10em\interlinepenalty\@M #1\par}}
     \nobreak\chapterheadendvskip}}
 \makeatother
+
+% Command to set chapter number color
+\newcommand{\qsetcncolor}[2]{\definecolor{chaptergrey}{#1}{#2}}
 
