@@ -18,5 +18,10 @@
 \makeatother
 
 % Command to set chapter number color
-\newcommand{\qsetcncolor}[2]{\definecolor{chaptergrey}{#1}{#2}}
+\newcommand{\qsetcncolor}[2][\empty]{%
+  \ifx#1\empty%
+    \colorlet{chaptergrey}{#2}
+  \else%
+    \definecolor{chaptergrey}{#1}{#2}
+  \fi}
 
