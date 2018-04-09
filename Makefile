@@ -63,9 +63,11 @@ all: $(DOCUMENT)
 	@# Initial compile
 	@echo "  Compiling $*.tex"
 	@$(call compile, $*)
+ifdef INDEXER
 	@# Create index
 	@echo "  Running $(INDEXER)"
 	@$(INDEXER) -s $*.mst $*.idx $(PIPE)
+endif
 
 # .bcf -> .bbl
 %.bbl: %.bcf $(REFERENCES)
