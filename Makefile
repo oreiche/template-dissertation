@@ -121,8 +121,8 @@ clean:
 	  *.blg *.sub *.suc *.syc *.sym *.syg *.syi *.synctex *.slg *.lol *.lof \
 	  *.ist *.gls *.glo *.gli *.glg *.alg *.acr *.acn *.ps *.defn *.nlo *.satz \
 	  *.nav *.snm *.xml *.synctex.gz *.synctex *.vrb *.bcf *.makefile *.figlist \
-	  figures/$(DOCUMENT)-figure[0-9]*.*
+	  $$(ls figures/$(DOCUMENT)-figure[0-9]*.* 2>/dev/null | grep -v pdf)
 
 distclean: clean
-	rm -f *.pdf
+	rm -f $(DOCUMENT).pdf figures/$(DOCUMENT)-figure[0-9]*.*
 
