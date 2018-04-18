@@ -116,12 +116,41 @@ fontinstall:
   done
 endif
 
+# Create a single source version
+single: $(DOCUMENT).tex $(PDFDEP) $(REFERENCES)
+	@echo "Creating single source version"
+	@# Call Latexpand to create a single source file
+	@echo "  Running Latexpand"
+	@latexpand --keep-comments $(DOCUMENT).tex -o $@.tex $(PIPE)
+	@# Search library includes and replace by a single unified include
+	@echo "  Patching TikZ and PGFPlots library includes"
+	@for LIB in tikz pgfplots; do \
+	  grep use$${LIB}library $@.tex | \
+	    sed 's/\\use'$${LIB}'library{\(.*\)}/\1/g' | tr -d ' ' | \
+	    sed 's/,/\n/g' | sort | uniq | xargs | tr ' ' ',' > libs.$${LIB}; \
+	  sed -i '/use'$${LIB}'library.*/d' $@.tex; \
+	  if [ -s libs.$${LIB} ]; then \
+	    sed -i 's/\(\\usepackage{'$${LIB}'}\)/\1\n\\use'$${LIB}'library{'$$(cat libs.$${LIB})'}/g' $@.tex; \
+	  fi; \
+	  rm -f libs.$${LIB}; \
+	done
+	@# Create output folder and stage all files into it
+	@echo "  Staging files to '$@'"
+	@mkdir -p $@
+	@rsync -a * $@/ --exclude $@ $(PIPE)
+	@mv $@.tex $@/$(DOCUMENT).tex
+	@# Delete dependent TeX files, resulting empty folders, and intermediate files
+	@echo "  Cleanup"
+	@cd $@; rm $@.tex $$(echo "$(PDFDEP)" | \
+	  sed 's/\ /\n/g' | grep "tex$$" | grep -v "$(DOCUMENT).tex" | xargs)
+	@find $@/ -type d -empty ! -path "$@/figures" -delete
+
 clean:
 	rm -rf *.aux *.auxlock *.ind *.idx *.toc *.out *.log *.lot *.ilg *.dvi *.bbl \
 	  *.blg *.sub *.suc *.syc *.sym *.syg *.syi *.synctex *.slg *.lol *.lof \
 	  *.ist *.gls *.glo *.gli *.glg *.alg *.acr *.acn *.ps *.defn *.nlo *.satz \
 	  *.nav *.snm *.xml *.synctex.gz *.synctex *.vrb *.bcf *.makefile *.figlist \
-	  $$(ls figures/$(DOCUMENT)-figure[0-9]*.* 2>/dev/null | grep -v pdf)
+	  $$(ls figures/$(DOCUMENT)-figure[0-9]*.* 2>/dev/null | grep -v pdf) single
 
 distclean: clean
 	rm -f $(DOCUMENT).pdf figures/$(DOCUMENT)-figure[0-9]*.*
