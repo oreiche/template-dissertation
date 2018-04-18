@@ -58,8 +58,11 @@ compile = $(COMPILER) -shell-escape $(1).tex $(PIPE) || $(call check_error, $$?,
 
 all: $(DOCUMENT)
 
+status:
+	@echo "Building $(DOCUMENT).pdf"
+
 # .tex -> .pdf and .bcf
-%.pdf %.bcf: %.tex $(PDFDEP)
+%.pdf %.bcf: %.tex $(PDFDEP) | status
 	@# Initial compile
 	@echo "  Compiling $*.tex"
 	@$(call compile, $*)
@@ -70,7 +73,7 @@ ifdef INDEXER
 endif
 
 # .bcf -> .bbl
-%.bbl: %.bcf $(REFERENCES)
+%.bbl: %.bcf $(REFERENCES) | status
 	@# Bibliography
 	@echo "  Running $(BIBTEXER)"
 	-@$(BIBTEXER) $* $(PIPE)
@@ -80,7 +83,6 @@ endif
 	@# Reset time stamp of .bbl to newer than .bcf
 	@touch $@
 
-$(info Building $(DOCUMENT).pdf)
 $(DOCUMENT): $$@.pdf $(BIBDEP)
 	@# Fill in missing references
 	@if test -e $*.log \
