@@ -139,7 +139,7 @@ single: $(DOCUMENT).tex $(PDFDEP) $(REFERENCES)
 	@mkdir -p $@
 	@rsync -a * $@/ --exclude $@ $(PIPE)
 	@mv $@.tex $@/$(DOCUMENT).tex
-	@# Delete dependent TeX files, resulting empty folders, and intermediate files
+	@# Delete dependent TeX files and resulting empty folders
 	@echo "  Cleanup"
 	@cd $@; rm $@.tex $$(echo "$(PDFDEP)" | \
 	  sed 's/\ /\n/g' | grep "tex$$" | grep -v "$(DOCUMENT).tex" | xargs)
