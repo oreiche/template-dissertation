@@ -41,11 +41,13 @@ endif
 
 check_error = \
   if [ ! $(1) -eq 0 ]; then \
-    cat $(2).log | perl -0777 -ne 'print m/\n! .*?\nl\.\d.*?\n.*?(?=\n)/gs'; \
+    cat $(2).log | \
+      perl -0777 -ne 'print m/\n! .*?\nl\.\d.*?\n.*?(?=\n)/gs' $(INDENT); \
     exit 1; \
   fi
 
-compile = $(COMPILER) -shell-escape $(1).tex $(PIPE) || $(call check_error, $$?, $(1))
+compile = $(COMPILER) -shell-escape $(1).tex $(PIPE) || \
+            $(call check_error, $$?, $(1))
 
 
 ################################################################################
