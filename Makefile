@@ -87,17 +87,17 @@ endif
 
 $(DOCUMENT): $$@.pdf $(BIBDEP)
 	@# Fill in missing references
-	@if test -e $*.log \
-	      && ( grep -q "There were undefined references." $*.log \
-	        || grep -q "Rerun to get outlines right" $*.log ); then  \
+	@if test -e $@.log \
+	      && ( grep -q "There were undefined references." $@.log \
+	        || grep -q "Rerun to get outlines right" $@.log ); then  \
 	  echo "  Filling in missing references"; \
-	  $(call compile, $*); \
+	  $(call compile, $@); \
 	fi
 	@# Fix cross-references
-	@while test -e $*.log \
-	      && grep -q "Rerun to get cross-references right." $*.log; do \
+	@while test -e $@.log \
+	      && grep -q "Rerun to get cross-references right." $@.log; do \
 	  echo "  Fixing cross-references"; \
-	  $(call compile, $*); \
+	  $(call compile, $@); \
 	done
 
 ifdef FONTS
