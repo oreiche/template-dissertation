@@ -66,10 +66,8 @@
   \printbibliography[notkeyword=own]
 
   % Author's own publications
-  \begin{refsection}
-    \nocite{*}
-    \printbibliography[title={Author's Own Publications}, keyword=own]
-  \end{refsection}
+  \newrefcontext[sorting=ynt]
+  \printbibliography[title={Author's Own Publications}, keyword=own]
 
   % Symbols
   \printnoidxglossary[type=symbols, style=dottedlist, sort=def]
