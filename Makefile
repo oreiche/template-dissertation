@@ -148,7 +148,7 @@ single: $(DOCUMENT).tex $(PDFDEP) $(REFERENCES)
 clean:
 	rm -rf *.aux *.auxlock *.ind *.idx *.toc *.out *.log *.lot *.ilg *.dvi *.bbl \
 	  *.blg *.sub *.suc *.syc *.sym *.syg *.syi *.synctex *.slg *.lol *.lof \
-	  *.ist *.gls *.glo *.gli *.glg *.alg *.acr *.acn *.ps *.defn *.nlo *.satz \
+	  *.ist *.mst *.gls *.glo *.gli *.glg *.alg *.acr *.acn *.ps *.defn *.nlo \
 	  *.nav *.snm *.xml *.synctex.gz *.synctex *.vrb *.bcf *.makefile *.figlist \
 	  $$(ls figures/$(DOCUMENT)-figure[0-9]*.* 2>/dev/null | grep -v pdf) single
 
