@@ -5,13 +5,24 @@
   \gdef\@germantitle{#1}}
 \newcommand*\placeofbirth[1]{%
   \gdef\@placeofbirth{#1}}
+\newcommand*\dateofdefense[1]{%
+  \gdef\@dateofdefense{#1}}
 \newcommand*\chairman[1]{%
   \gdef\@chairman{#1}}
+\newcommand*\reviewers[1]{%
+  \gdef\@reviewers{#1}}
+\newcommand*\keywords[1]{%
+  \gdef\@keywords{#1}}
 
 % Title page
 \renewcommand\maketitle{%
+  \hypersetup{
+    pdftitle={\@title},
+    pdfauthor={\@author},
+    pdfsubject={\@subject},
+    pdfkeywords={\@keywords}
+  }
   \begin{titlepage}%
-
     % Title body
     \begin{center}
       \null\vfill
@@ -61,13 +72,13 @@
     von der Technischen Fakult{\"a}t\\
     der Friedrich-Alexander-Universit{\"a}t Erlangen-N{\"u}rnberg\\
   %\end{center}
-  Tag der m\"undlichen Pr\"ufung: \@date
+  Tag der m\"undlichen Pr\"ufung: \@dateofdefense
   \vspace{10mm}
 
   Vorsitzender des Promotionsorgans: {\@chairman}
   \vspace{5mm}
 
-  Gutachter: \parbox[t]{.8\textwidth}{\@publishers}
+  Gutachter: \parbox[t]{.8\textwidth}{\@reviewers}
 }
 
 \makeatother
