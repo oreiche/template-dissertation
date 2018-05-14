@@ -17,10 +17,8 @@
 % Title page
 \renewcommand\maketitle{%
   \hypersetup{
-    pdftitle={\@title},
-    pdfauthor={\@author},
-    pdfsubject={\@subject},
-    pdfkeywords={\@keywords}
+    pdfsubject={\ifx\@subject\@undefined\else \@subject\fi},
+    pdfkeywords={\ifx\@keywords\@undefined\else \@keywords\fi}
   }
   \begin{titlepage}%
     % Title body
