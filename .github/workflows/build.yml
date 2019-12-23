@@ -1,0 +1,33 @@
+name: Build
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  linux:
+    name: Linux
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+
+      - name: Run Docker image
+        run: docker run -v $(pwd):/workspace -w /workspace danteev/texlive:latest latexmk -pdflatex="lualatex -shell-escape" -pdf dissertation.tex
+
+      - name: Upload artifact
+        if: "!contains(github.ref, 'refs/tags/')"
+        uses: actions/upload-artifact@v2
+        with:
+          name: latest build
+          path: 'dissertation.pdf'
+          
+      - name: Upload tagged
+        if: contains(github.ref, 'refs/tags/')
+        uses: svenstaro/upload-release-action@1.1.0
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: dissertation.pdf
+          tag: ${{ github.ref }}
+          overwrite: true
+          file_glob: true
