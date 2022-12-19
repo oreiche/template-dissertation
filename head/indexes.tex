@@ -64,11 +64,15 @@
 
 \makeatletter
 \@ifpackageloaded{biblatex}{%
-% Borrowing contents of \MakeSentenseCase{} command from BibLaTeX:
+% Use internals of \MakeSentenceCase*{} command from BibLaTeX:
+\@ifpackagewith{biblatex}{casechanger=latex2e}{}{%
+  % IMPORTANT: BibLaTeX must be loaded with 'casechanger=latex2e' for
+  %            \MakeSentenceCase*{}'s internals to be available.
+  \@latex@error{load biblatex package with option 'casechanger=latex2e'}}
 % Transforms all characters to lower case except those that were escaped using
 % curly braces {}, similar to titles in BibLaTeX entries.
 \newrobustcmd{\MakeLowercaseEscaped}{%
-  % Prevent \MakeSentenseCase{} from capitalizing first character
+  % Similar to \MakeSentenceCase*{}, just without capitalizing first character
   \let\blx@mksc@endhead\relax%
   \blx@mksc@ii}
 }{%
