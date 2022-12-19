@@ -1,0 +1,24 @@
+{ "gpu-data":
+  { "type": "generic"
+  , "deps": ["benchmark_gpu.sh"]
+  , "cmds": ["./benchmark_gpu.sh > gpu.dat"]
+  , "outs": ["gpu.dat"]
+  }
+, "pareto-data":
+  { "type": "generic"
+  , "deps": ["measure_util.sh"]
+  , "cmds": ["./measure_util.sh > pareto.dat"]
+  , "outs": ["pareto.dat"]
+  }
+, "vect-data":
+  { "type": "generic"
+  , "deps": ["benchmark_vect.sh"]
+  , "cmds": ["./benchmark_vect.sh > vect.dat"]
+  , "outs": ["vect.dat"]
+  }
+, "ALL":
+  { "type": "install"
+  , "dirs":
+    [["gpu-data", "data"], ["pareto-data", "data"], ["vect-data", "data"]]
+  }
+}

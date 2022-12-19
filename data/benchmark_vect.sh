@@ -1,3 +1,10 @@
+#!/bin/sh
+
+# dummy script, creating benchmark data for plots
+
+set -e
+
+cat << EOF
 app ispc icc clang gcc baseline
 10  4.66065 5.12209 1.42692 1.00007 1
 20  6.64682 1.04833 0.990788 0.9796 1
@@ -6,3 +13,4 @@ app ispc icc clang gcc baseline
 50  1.02912 2.35378 1.43326 0.752229 1
 60  0.905241 1.72573 1.09452 1.03311 1
 70  1.62216 2.79393 1.4466 1.13413 1
+EOF

@@ -1,0 +1,49 @@
+{ "data-files":
+  { "type": "install"
+  , "files": {"main.tex": ["FILE", null, "dissertation.tex"]}
+  , "deps":
+    [ ["TREE", null, "head"]
+    , ["TREE", null, "code"]
+    , ["TREE", null, "figures"]
+    , ["TREE", null, "body"]
+    , ["data", "ALL"]
+    ]
+  }
+, "dissertation.tex":
+  { "type": "file_gen"
+  , "name": "dissertation.tex"
+  , "data": "\\def\\final{}\\input{main}"
+  }
+, "dissertation_print.tex":
+  { "type": "file_gen"
+  , "name": "dissertation_print.tex"
+  , "data": "\\def\\final{}\\def\\print{}\\input{main}"
+  }
+, "dissertation_draft.tex":
+  { "type": "file_gen"
+  , "name": "dissertation_draft.tex"
+  , "data": "\\input{main}"
+  }
+, "dissertation":
+  { "type": ["@", "rules", "latex", "latexmk"]
+  , "main": ["dissertation"]
+  , "opts": ["-pdf", "-lualatex", "-shell-escape"]
+  , "srcs": ["data-files", "dissertation.tex"]
+  }
+, "dissertation_print":
+  { "type": ["@", "rules", "latex", "latexmk"]
+  , "main": ["dissertation_print"]
+  , "opts": ["-pdf", "-lualatex", "-shell-escape"]
+  , "srcs": ["data-files", "dissertation_print.tex"]
+  }
+, "dissertation_draft":
+  { "type": ["@", "rules", "latex", "latexmk"]
+  , "main": ["dissertation_draft"]
+  , "opts": ["-pdf", "-lualatex", "-shell-escape"]
+  , "srcs": ["data-files", "dissertation_draft.tex"]
+  }
+, "ALL":
+  { "type": "install"
+  , "deps": ["dissertation", "dissertation_print", "dissertation_draft"]
+  }
+}

@@ -1,0 +1,20 @@
+{ "main": "dissertation"
+, "repositories":
+  { "dissertation":
+    { "repository":
+      { "type": "file"
+      , "path": "."
+      }
+    , "bindings": {"rules": "rules"}
+    }
+  , "rules":
+    { "repository":
+      { "type": "git"
+      , "branch": "master"
+      , "commit": "418c90a02d13a2dd05bd604250ff8da889e1ef86"
+      , "repository": "https://github.com/just-buildsystem/rules-typesetting"
+      }
+    }
+  }
+}
+
